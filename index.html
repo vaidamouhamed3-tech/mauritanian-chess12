@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الشطرنج بالحسانية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="header">
+        <h1>الشطرنج بالحسانية 🇲🇷</h1>
+        <!-- لوحة الصدارة والرقام القياسي -->
+        <div class="leaderboard-box">
+            🏆 المتصدر حالياً: <span id="topPlayerName">لا يوجد</span> (سلسلة انتصارات: <span id="topStreak">0</span>)
+        </div>
+    </div>
+
+    <!-- قسم الحساب والملف الشخصي -->
+    <div class="profile-section">
+        <div class="user-card">
+            <img id="displayAvatar" src="https://chessboardjs.com/img/chesspieces/wikipedia/wK.png" class="avatar" alt="الصورة الشخصية">
+            <div>
+                <strong id="displayName">لاعب جديد</strong><br>
+                <small>انتصاراتك الحالية: <span id="myStreak">0</span></small>
+            </div>
+        </div>
+        <div class="profile-inputs">
+            <input type="text" id="usernameInput" placeholder="اكتب اسمك">
+            <input type="file" id="avatarInput" accept="image/*">
+            <button onclick="saveProfile()">حفظ الحساب</button>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <!-- رقعة الشطرنج -->
+        <div id="board" class="board"></div>
+        
+        <!-- لوحة التحكم وإعدادات اللعبة -->
+        <div class="controls">
+            <!-- اختيار التوقيت -->
+            <div class="time-select-box">
+                <label>وقت المباراة:</label>
+                <select id="timeControl" onchange="changeTimeControl()">
+                    <option value="none">بدون وقت</option>
+                    <option value="10">10 دقائق</option>
+                    <option value="60">60 دقيقة</option>
+                </select>
+            </div>
+
+            <!-- عرض التوقيت الحالي -->
+            <div class="timer-display" id="timerDisplay" style="display:none;">
+                <span>⏱️ الوقت المتبقي: </span>
+                <span id="whiteTimer">10:00</span> (أبيض) | <span id="blackTimer">10:00</span> (أسود)
+            </div>
+
+            <button onclick="resetGame()">إعادة اللعبة</button>
+            <button onclick="startVsComputer()">💻 اللعب ضد الكمبيوتر</button>
+            <button onclick="startOnlineGame()">🌐 لعب أونلاين (إنشاء/انضمام عبر رابط)</button>
+            <button id="micBtn" onclick="toggleVoiceChat()" style="display:none;">🎙️ تشغيل/كتم المايك</button>
+
+            <!-- مربع المحادثة النصية Chat -->
+            <div id="chatBox" class="chat-box" style="display:none;">
+                <div id="chatMessages" class="chat-messages"></div>
+                <div class="chat-input-container">
+                    <input type="text" id="chatInput" placeholder="اكتب رسالة...">
+                    <button onclick="sendChatMessage()">إرسال</button>
+                </div>
+            </div>
+
+            <div class="game-info">
+                <p id="turnInfo">دور: الأبيض</p>
+                <p id="onlineStatus"></p>
+                <p id="opponentInfo">الخصم: <span id="opponentName">غير متصل</span></p>
+            </div>
+        </div>
+    </div>
+
+    <audio id="remoteAudio" autoplay></audio>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.js"></script>
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
